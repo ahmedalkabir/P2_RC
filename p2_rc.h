@@ -23,28 +23,7 @@ typedef struct {
     uint16_t aux_2;
 } P2_RC;
 
-static uint8_t _head_sbus = 0x0F;
-static uint8_t _footer_sbus = 0x00;
-static uint8_t _sbus2Footer = 0x04;
-static uint8_t _sbus2Mask = 0x0F;
-
-static uint8_t _sbus_payload[24] = {0};
-static uint8_t _incr = 0;
-static char _prev_byte = 0;
-static uint16_t _channels[7] = {0};
-static uint8_t _length = 0;
-
-static uint8_t _buffer[30];
-static uint8_t _pos = 0;
-// flags 
-static bool _start_fill = false;
-static bool _available = false;
-
-// internal functions
-static void parse(const uint8_t *__payload);
-
 // external variables and functions
-
 extern P2_RC channels;
 
 #ifdef __cplusplus

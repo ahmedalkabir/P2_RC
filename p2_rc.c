@@ -1,6 +1,23 @@
-#include <p2_rc.h>
+
+#include "p2_rc.h"
 #include <avr/interrupt.h>
 
+// internal variables
+static uint8_t _head_sbus = 0x0F;
+static uint8_t _footer_sbus = 0x00;
+static uint8_t _sbus2Footer = 0x04;
+static uint8_t _sbus2Mask = 0x0F;
+
+static uint8_t _sbus_payload[24] = {0};
+static uint8_t _incr = 0;
+static char _prev_byte = 0;
+static uint16_t _channels[7] = {0};
+
+// flags 
+static bool _available = false;
+
+
+// redefine the variable
 P2_RC channels;
 
 // internal functions
@@ -33,7 +50,7 @@ void parse(const uint8_t *__payload)
 
 
 // for arduino uno and arduino mega
-#if defined(__AVR_ATmega328P) || defined(__AVR_ATmega328) || defined(__AVR_ATmega2560__)
+#if defined(__AVR_ATmega328P__) || defined(__AVR_ATmega328) || defined(__AVR_ATmega2560__)
 void p2_rc_init()
 {
     UBRR0H = BAUD(100000) >> 8;
